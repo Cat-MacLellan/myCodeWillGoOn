@@ -1,0 +1,25 @@
+$(document).ready(function() {
+  
+  function forecast() {
+    var URL = 'https://api.openweathermap.org/data/2.5/forecast?q=Barcelona,Es&units=metric&cnt=5&appid=6b3de6eb0de111a5fd9f861d0cc8067f';
+    $.getJSON(URL, function(data){
+      console.log(data);
+      updateDOM(data);
+    });
+  }
+  forecast();
+  
+  function updateDOM(data) {
+    var date = data.list[0].dt_txt;
+    var temp = Math.round(data.list[0].main.temp);
+    var desc = data.list[0].weather[0].description;
+    var icon = data.list[0].weather[0].icon;
+    var iconURL = "https://openweathermap.org/img/w/" + icon + ".png";
+    
+    $('#date').html(date);
+    $('#temp').html(temp);
+    $('#desc').html(desc);
+    $('#icon').attr('src', iconURL);
+    
+  }
+});
